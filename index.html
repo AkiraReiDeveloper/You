@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historia Especial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #ffb6c1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .story-container {
+      position: relative;
+      text-align: center;
+      max-width: 80%;
+    }
+
+    .story-text {
+      font-size: 2.2em;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 1s ease-in;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5em;
+      animation: float 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(0.8); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="story-container">
+    <div id="story1" class="story-text">Había una vez una persona muy especial...</div>
+    <div id="story2" class="story-text">Que llenaba de luz todo a su alrededor...</div>
+    <div id="story3" class="story-text">Con una sonrisa que hacía florecer corazones...</div>
+    <div id="story4" class="story-text">Este mensaje es solo para recordarte...</div>
+    <div id="story5" class="story-text">Que eres increíble y muy especial ❤️</div>
+  </div>
+
+  <script>
+    let currentMessage = 0;
+    const messages = document.querySelectorAll(".story-text");
+
+    function showMessage(index) {
+      if (index < messages.length) {
+        messages[index].style.opacity = 1;
+        setTimeout(() => {
+          messages[index].style.opacity = 0;
+          showHearts();
+          showMessage(index + 1);
+        }, 3000);
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = `${Math.random() * window.innerWidth}px`;
+      heart.style.top = `${window.innerHeight}px`;
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    function showHearts() {
+      for (let i = 0; i < 10; i++) {
+        createHeart();
+      }
+    }
+
+    setInterval(createHeart, 200); // Crea corazones flotantes cada 200ms
+    showMessage(0);
+  </script>
+</body>
+</html>
